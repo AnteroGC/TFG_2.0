@@ -1,0 +1,89 @@
+
+<div class="container">
+    <div class="row">
+      <!-- Blog entries-->
+      <div class="col-lg-7">
+        <!-- Featured blog post-->
+        <div class="card mb-4">
+          <a><img class="card-img-top"  [src]="viewUser.profilePic" alt="..."/></a>
+          <div fxLayout="row" fxLayoutAlign="space-between start"   class="card-body">
+            <div>
+              <h2 class="card-title">Perfil de {{viewUser.firstName}}</h2>
+              <div class="small text-muted">{{viewUser.lastName}}</div>
+              <ng-container *ngIf="viewUser.roles == 'Artist'" >
+                <p class="fw-bold text-primary">Este usuario es un artista</p>
+              </ng-container>
+              <ng-container *ngIf="viewUser.roles == 'Reader'" >
+                <p class="fw-bold text-primary">Este usuario no es un artista</p>
+              </ng-container>
+            </div>
+            <div *ngIf="userLoged.id != -1 && userLoged.id != viewUser.id"> 
+              <button  *ngIf="isFollow.length >0" (click)="unFollow()"   mat-stroked-button>Dejar de seguir</button> 
+              <button  *ngIf="isFollow.length ==0" (click)="follow()"   mat-stroked-button>seguir</button> 
+            </div>        
+            <div *ngIf="userLoged.id == viewUser.id">
+              <button mat-button [matMenuTriggerFor]="menuSeguidores">Seguidos</button>
+              <mat-menu #menuSeguidores="matMenu">
+                <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+                  <ng-container *cdkVirtualFor="let item of followers">
+                    <button mat-menu-item routerLink="/user-post/{{item.followers.firstName}}">{{item.followers.firstName}}</button>
+                    
+                  </ng-container>
+                </cdk-virtual-scroll-viewport>
+              </mat-menu>
+
+              <button mat-button [matMenuTriggerFor]="menu">Seguidores</button>
+              <mat-menu #menu="matMenu">
+                <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+                  <ng-container *cdkVirtualFor="let item of following">
+                    <button mat-menu-item  routerLink="/user-post/{{item.following.firstName}}">{{item.following.firstName}}</button>
+                    
+                  </ng-container>
+                </cdk-virtual-scroll-viewport>
+              </mat-menu>
+              
+              
+            </div>
+          </div>
+        </div>
+        <!-- Nested row for non-featured blog posts-->
+        <div class="row">
+          <ng-container *ngFor="let p of posts$ | async">
+          <div class="col-lg-6">
+            <!-- Blog post-->
+  
+              <div class="card mb-4">
+                <a routerLink="/post/detail/{{p.slug}}"><img class="card-img-top" [src]="p.mainImageUrl" alt="..."/></a>
+                <div class="card-body">
+                  <div class="small text-muted">{{p.createdAt | date: 'medium'}}</div>
+                  <h2 class="card-title h4">{{p.tittle | uppercase}}</h2>
+                  <p class="fw-bold text-primary">{{p.category.tittle}}</p>
+                  <p class="card-text" [innerHTML]="p.content.substr(0, 50) + '...'"></p>
+                  <div fxLayout="row" fxLayoutAlign="space-between center" >
+                    <a class="btn btn-primary" routerLink="/home/detail/{{p.slug}}">Más info →</a>
+                    <a *ngIf="p.song" (click)="playSong(p.song)"><i class="fa fa-play fa-3x" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+              </div>
+  
+          </div>
+          </ng-container>
+  
+        </div>
+       
+      </div>
+      <!-- Side widgets-->
+      <div class="col-lg-4">
+        <!-- Search widget-->
+        <div class="card mb-4">
+          <div class="card-header">Buscar</div>
+          <app-search-filter></app-search-filter>
+        </div>
+        <!--Category List -->
+         <app-category-list
+         [viewUser]="filteredOptions"></app-category-list>
+        <!-- Side widget-->
+
+      </div>
+    </div>
+  </div>

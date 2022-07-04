@@ -1,0 +1,21 @@
+
+<!-- Categories widget-->
+<div class="card mb-4">
+    <div class="card-header">Filtrar por categoria</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6" *ngFor="let c of category | async">
+          <ul class="list-unstyled mb-0">
+            <li>
+              <ng-container *ngIf="!user">
+                <a  routerLink="/home/category/{{c.tittle}}">{{c.tittle}}</a>
+              </ng-container>
+              <ng-container *ngIf="user">
+                <a  routerLink="/user-post/{{user.firstName}}/{{c.tittle}}">{{c.tittle}}</a>
+              </ng-container>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

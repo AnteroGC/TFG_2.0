@@ -1,0 +1,64 @@
+
+<div class="card mb-4">
+    <div class="card-header">
+      <i class="fas fa-table me-1"></i>
+      All Posts
+    </div>
+    <div class="card-body">
+      <p-table #dt1 [value]="posts" responsiveLayout="scroll" dataKey="id" [rows]="5" [showCurrentPageReport]="true"
+               [rowsPerPageOptions]="[5,10,15,20,50]" styleClass="p-datatable-gridlines" [paginator]="true"
+               currentPageReportTemplate="mostrando {first} de {last} de {totalRecords} publicaciones"
+               [globalFilterFields]="['title', 'category.title', 'user.firstname']"
+      >  
+ 
+        <ng-template pTemplate="caption">
+          <div class="flex">
+
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>
+              Imagen
+            </th>
+            <th pSortableColumn="title">Titulo
+              <p-sortIcon field="title"></p-sortIcon>
+            </th>
+            <th pSortableColumn="createdOn">Creado 
+              <p-sortIcon field="createdOn"></p-sortIcon>
+            </th>
+            <th pSortableColumn="category.title">Categoria
+              <p-sortIcon field="category.title"></p-sortIcon>
+            </th>
+            <th pSortableColumn="user.firstname">Autor
+              <p-sortIcon field="user.firstname"></p-sortIcon>
+            </th>
+
+            <th>
+              Acciones
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-post>
+          <tr>
+            <td>
+              <img src="{{post.mainImageUrl}}" alt="{{post.tittle}}" width="200px">
+            </td>
+            <td>{{post.tittle}}</td>
+            <td>{{post.createdAt | date: 'medium'}}</td>
+            <td>{{post.category.tittle}}</td>
+            <td>{{post.user.firstName}}, {{post.user.lastName}}</td>
+           
+            <td>
+              <div class="d-flex justify-content-start align-items-center">
+                <span class="mx-3 text-warning cursor-pointer d-inline-block" routerLink="/posts/edit/{{post.slug}}"><i class="pi pi-pencil"></i></span>
+                <span class="text-danger cursor-pointer d-inline-block" (click)="removePost(post.id)"><i class="pi pi-trash"></i></span>
+              </div>
+
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+<p-toast position="bottom-center"></p-toast>

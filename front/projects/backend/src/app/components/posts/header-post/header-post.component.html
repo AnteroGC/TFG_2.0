@@ -1,0 +1,47 @@
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#!">PureMusic</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" routerLink="/home">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" *ngIf="!!user?.email" routerLink="/user-post/{{user.firstName}}">Perfil</a></li>
+                <li class="nav-item"><a class="nav-link"  *ngIf="!!user?.email " routerLink="/posts">Gestionar Cuenta</a></li>
+                <li class="nav-item"><a class="nav-link"   (click)="logout()" *ngIf="!!user?.email ">Logout</a></li>
+              <li class="nav-item"><a class="nav-link"  routerLink="http://localhost:4300/login" *ngIf="!user?.email ">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Page header with logo and tagline-->
+<header class="py-2 bg-light border-bottom mb-4">
+    <body>
+    
+
+        <div class="music-container" id="music-container">
+
+    
+          <figure>
+            <figcaption > Reproductor</figcaption> 
+            
+            <audio
+                autoplay
+                controls
+                src="{{nameSong}}">
+                    Your browser does not support the
+                    <code>audio</code> element.
+            </audio>
+        </figure>
+        
+        </div>
+        <p style="margin-left: 10px">Reproduciendo: {{showNameSong[5]}} </p>
+        
+      </body>
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Bienvenido a PureMusic</h1>
+            <p class="lead mb-0">Un mundo donde la músca está más cerca de ti</p>
+        </div>
+    </div>
+</header>

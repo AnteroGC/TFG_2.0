@@ -1,0 +1,56 @@
+
+<div class="container">
+    <div class="row">
+      <!-- Blog entries-->
+      <div class="col-lg-8">
+        <!-- Featured blog post-->
+        
+         
+          
+           
+            <h2 class="card-title">Últimas publicaciones </h2>
+            
+          
+        
+        <!-- Nested row for non-featured blog posts-->
+        <div class="row">
+          <ng-container *ngFor="let p of posts$ | async">
+          <div class="col-lg-6">
+            <!-- Blog post-->
+  
+              <div class="card mb-4">
+                <a href="#!"><img class="card-img-top" [src]="p.mainImageUrl" alt="..."/></a>
+                <div class="card-body">
+                  <div class="small text-muted">{{p.createdAt | date: 'medium'}}</div>
+                  <h2 class="card-title h4">{{p.tittle | uppercase}}</h2>
+                  <a class="btn btn-primary" routerLink="/user-post/{{p.user.firstName}}">{{p.user.firstName}}</a>
+                  <p class="fw-bold text-primary">{{p.category.tittle}}</p>
+                  <p class="card-text" [innerHTML]="p.content.substr(0, 50) + '...'"></p>
+                  <div fxLayout="row" fxLayoutAlign="space-between center" >
+                    <a class="btn btn-primary" routerLink="/home/detail/{{p.slug}}">Más info →</a>
+                    <a *ngIf="p.song" (click)="playSong(p.song)"><i class="fa fa-play fa-3x" aria-hidden="true"></i></a>
+                  </div>
+                  
+                </div>
+              </div>
+  
+          </div>
+          </ng-container>
+  
+        </div>
+       
+      </div>
+      <!-- Side widgets-->
+      <div class="col-lg-4">
+        <!-- Search widget-->
+        <div class="card mb-4">
+          <div class="card-header">Buscador</div>
+          <app-search-filter></app-search-filter>
+        </div>
+        <!--Category List -->
+         <app-category-list></app-category-list>
+
+      </div>
+    </div>
+  </div>
+ 

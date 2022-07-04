@@ -1,0 +1,63 @@
+<ng-container *ngIf="post | async as p">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-lg-8">
+          <!-- Post content-->
+          <article>
+            <!-- Post header-->
+            <header class="mb-4">
+              <!-- Post title-->
+              <h1 class="fw-bolder mb-1">{{p.tittle}}</h1>
+              <!-- Post meta content-->
+              <div class="text-muted fst-italic mb-2">Posted on {{p.createdAt | date: 'medium'}} by {{p.user.firstName}}, {{p.user.lastName}}</div>
+              <!-- Post categories-->
+              <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{p.category.tittle}}</a>
+            </header>
+            <!-- Preview image figure-->
+            <figure class="mb-4"><img class="img-fluid rounded" [src]="p.mainImageUrl" alt="..." /></figure>
+            <!-- Post content-->
+            <section class="mb-5">
+              <p class="fs-5 mb-4" [innerHTML]="p.content"></p>
+            </section>
+          </article>
+          <!-- Comments section-->
+          <section class="mb-5">
+            <div class="card bg-light">
+              <div class="card-body">
+                <!-- Comment form-->
+                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Deja tu comentario"></textarea></form>
+                <!-- Comment with nested comments-->
+                <div class="d-flex mb-4">
+                  <!-- Parent comment-->
+                  <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                  <div class="ms-3">
+                    <div class="fw-bold">Paula Perea Hurtado</div>
+                    Muy chulo!
+
+                  </div>
+                </div>
+                <!-- Single comment-->
+                <div class="d-flex">
+                  <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                  <div class="ms-3">
+                    <div class="fw-bold">Antero Guarinos Caballero</div>
+                    Que pasada! Me encanta!!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <!-- Side widgets-->
+        <div class="col-lg-4">
+          <!-- Search widget-->
+          <div class="card mb-4">
+            <app-search-filter></app-search-filter>
+          </div>
+          <app-category-list></app-category-list>
+          <!-- Side widget-->
+
+        </div>
+      </div>
+    </div>
+    </ng-container>

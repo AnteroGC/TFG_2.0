@@ -1,0 +1,76 @@
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+      <main>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-7">
+              <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Crear cuenta</h3></div>
+                <div class="card-body">
+                    
+                  <form (ngSubmit)="createPost(myForm)" #myForm="ngForm">
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                          <input class="form-control" id="inputFirstName" name="firstname" ngModel type="text" placeholder="Enter your first name" />
+                          <label for="inputFirstName">Nombre</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-floating">
+                          <input class="form-control" id="inputLastName" name="lastname" ngModel type="text" placeholder="Enter your last name" />
+                          <label for="inputLastName">Apellidos</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputEmail" #email="ngModel" type="email" placeholder="name@example.com" name="email" ngModel required/>
+                        <div class="icon">
+                          <span  *ngIf="!email.errors && email.touched"><i class="pi pi-check text-success"></i></span>
+                          <span  *ngIf="email.errors && email.touched"><i class="pi pi-times text-danger"></i></span>
+                        </div>
+                        <label for="inputEmail" class="text-dark">Email</label>
+                        <span class="d-block text-danger" *ngIf="email.touched && email.invalid">Email es obligatorio</span>
+                      </div>
+
+                        <div class="form-floating mb-3">
+                          <input class="form-control" id="inputPassword" name="password" ngModel type="password" placeholder="Create a password" />
+                          <label for="inputPassword">Contraseña</label>
+                        </div>
+
+                        <div class="col-md-4 mx-auto">
+                            <div class="my-2">
+                              <p-progressBar [value]="uploadProgress" *ngIf="showProgress"></p-progressBar>
+                            </div>
+                            <input type="file" (change)="preview($event)" name="main-image" accept="image/*" class="d-none" #filebrowser>
+                            <div class="main-image">
+                              <img [src]="imgUrl" alt="{{altText}}" class="img-fluid">
+                            </div>
+                            <button pButton (click)="filebrowser.click()" type="button" class="d-block my-4 p-button-success p-button-raised"><i class="pi pi-upload"></i> &nbsp;&nbsp;Subir archivo</button>
+                          </div>
+                    <div class="mt-4 mb-0">
+                      <div class="d-grid"> <button class="btn btn-primary btn-block" type="submit">Crear cuenta</button></div>
+                    </div>
+                  </form>
+                  <p-toast position="bottom-center"></p-toast>
+                </div>
+                <div class="card-footer text-center py-3">
+                  <div class="small"><a routerLink="/login">¿Tienes una cuenta? Inicia sesión</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div id="layoutAuthentication_footer">
+      <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+          <div class="d-flex align-items-center justify-content-between small">
+            
+
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>

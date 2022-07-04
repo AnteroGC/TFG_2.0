@@ -1,0 +1,20 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill" > 
+      <mat-label>Usuario</mat-label>
+      <input type="text"
+             placeholder="Selecciona el usuario a buscar"
+             aria-label="Usuario"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto"
+             
+             >
+              
+             <mat-autocomplete #auto="matAutocomplete"
+             (optionSelected)='goTo($event)'>
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.firstName">
+            {{option.firstName}}
+          </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
